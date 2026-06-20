@@ -78,13 +78,25 @@ function getImpact(amount: number | null, locale: string): string {
   return map.custom;
 }
 
-export default function DonateClient() {
+export default function DonateClient({
+  initialAmount,
+}: {
+  initialAmount?: number;
+}) {
   const t = useTranslations("donate");
   const locale = useLocale();
   const isFr = locale === "fr";
 
-  const [selectedPreset, setSelectedPreset] = useState<Preset | null>(50);
-  const [customAmount, setCustomAmount] = useState("");
+  // Honour an ?amount= passed from the homepage donate section.
+  const presetMatch =
+    initialAmount != null &&
+    (PRESETS as readonly number[]).includes(initialAmount);
+  const [selectedPreset, setSelectedPreset] = useState<Preset | null>(
+    presetMatch ? (initialAmount as Preset) : initialAmount != null ? null : 50,
+  );
+  const [customAmount, setCustomAmount] = useState(
+    initialAmount != null && !presetMatch ? String(initialAmount) : "",
+  );
   // Monthly defaults ON — recurring giving is the highest-leverage revenue lever.
   const [isMonthly, setIsMonthly] = useState(true);
   const [loading, setLoading] = useState(false);

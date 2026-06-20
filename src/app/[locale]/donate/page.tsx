@@ -19,6 +19,14 @@ export async function generateMetadata({
   };
 }
 
-export default function DonatePage() {
-  return <DonateClient />;
+export default async function DonatePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ amount?: string }>;
+}) {
+  const { amount } = await searchParams;
+  const parsed = amount ? Number(amount) : NaN;
+  const initialAmount =
+    Number.isFinite(parsed) && parsed >= 5 ? parsed : undefined;
+  return <DonateClient initialAmount={initialAmount} />;
 }
