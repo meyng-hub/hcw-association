@@ -15,6 +15,7 @@ DMARC.** Mail probably works but is fragile. The migration must (a) not lose it,
 and (b) fix it.
 
 ### Step 1 — confirm the Google Workspace account (blocker)
+
 - Sign in at **admin.google.com** with a `…@h-cw.org` admin address.
 - Confirm the mailbox is **active** and check **Billing**: is Google Workspace
   paid **directly to Google**, or **through Wix**?
@@ -27,6 +28,7 @@ and (b) fix it.
 ---
 
 ## Step 2 — finish the Vercel site (my side + your data)
+
 - Set env vars in Vercel project `hcw-association` (from `.env.example`):
   `STRIPE_*`, `NEXT_PUBLIC_HELLOASSO_URL`, `RESEND_API_KEY`, `BREVO_API_KEY`,
   `NEXT_PUBLIC_SANITY_*`, `NEXT_PUBLIC_SITE_URL=https://www.h-cw.org`,
@@ -35,8 +37,10 @@ and (b) fix it.
 - Verify everything on the temporary `*.vercel.app` URL BEFORE touching DNS.
 
 ## Step 3 — switch DNS control to IONOS (recommended over Vercel NS, for email safety)
+
 `h-cw.org` is registered at **IONOS** but its nameservers are delegated to Wix
 (`ns14/ns15.wixdns.net`, not editable inside Wix). In the **IONOS** domain panel:
+
 - Change nameservers from `*.wixdns.net` → **IONOS default DNS** (use IONOS's own
   nameservers / "Use IONOS name servers").
 - Then manage all records in the IONOS DNS zone (next steps).
@@ -75,26 +79,31 @@ _Remove_ the Wix sending records (no longer needed): `s1/s2/sel1._domainkey`,
 `sg.h-cw.org`, and the `_dmarc → _dmarc.wixemails.com` CNAME.
 
 ## Step 5 — connect the domain in Vercel
+
 - Vercel → project → Settings → Domains → add `h-cw.org` and `www.h-cw.org`.
 - Vercel verifies and issues SSL automatically once DNS points to it.
 
 ## Step 6 — verify (after propagation, ~15 min–48 h)
+
 ```bash
 nslookup -type=A h-cw.org 8.8.8.8        # → 76.76.21.x (Vercel), not 185.230.x
 nslookup -type=MX h-cw.org 8.8.8.8       # → full aspmx.l.google.com set
 nslookup -type=A n8n.h-cw.org 8.8.8.8    # → 38.143.19.195 (unchanged)
 curl -sI https://www.h-cw.org | grep -i server   # Vercel
 ```
+
 - Send a test email TO and FROM `contact@h-cw.org`.
 - Click through the live site; confirm donate (HelloAsso), FR/EN, forms.
 
 ## Step 7 — redirects + let Wix lapse
+
 - Add 301 redirects in `next.config.ts` for any indexed old Wix URLs.
 - Leave the Wix site alone; it expires Jul 9 on its own.
 
 ---
 
 ## Rollback (if anything breaks at cutover)
+
 Switch the IONOS nameservers **back to `ns14.wixdns.net` / `ns15.wixdns.net`**.
 Within propagation time the site + email revert to the current Wix state.
 (Valid until Jul 9, 2026 — after that the Wix plan is gone, so don't rely on this

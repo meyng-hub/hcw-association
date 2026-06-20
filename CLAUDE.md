@@ -41,6 +41,16 @@ Resend (email) · Brevo (newsletter) · Plausible (cookieless analytics).
 
 ## ⚠️ Placeholders to replace before production launch
 
+- **🔴 FABRICATED placeholder content — must replace or remove before launch.**
+  The News articles (`NEWS_ARTICLES` in [`[locale]/news/page.tsx`](src/app/[locale]/news/page.tsx),
+  `RECENT_NEWS` in [`NewsPreview.tsx`](src/components/sections/NewsPreview.tsx)) and
+  the campaign figures in [`CampaignProgress.tsx`](src/components/sections/CampaignProgress.tsx)
+  are **AI-generated placeholders** that name specific people, awards, partners,
+  dates and amounts (e.g. "IAAP award / Alexandra Nothnagel", "Yakandja orphanage",
+  "WEIRAM partnership", "€70,000 goal reached", "€350 raised / 12 donors"). These
+  are **not verified and likely did not happen as written** — publishing them
+  would be fabrication that damages the charity's credibility. Replace with real
+  news/figures or remove the News + Campaign sections before going live.
 - `REGISTRATION.rna` in [`src/lib/constants.ts`](src/lib/constants.ts) — real RNA
   number (footer trust signal stays hidden until set).
 - `HELLOASSO.formUrl` — the association's real HelloAsso donation form URL.
