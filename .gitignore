@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# Large source-photo archive — belongs in Sanity CDN, never in git (~300MB).
+/public/images/drive/
+
 # debug
 npm-debug.log*
 yarn-debug.log*

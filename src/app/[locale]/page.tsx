@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 import HeroSection from "@/components/sections/HeroSection";
+import FounderLegacy from "@/components/sections/FounderLegacy";
 import ImpactCounter from "@/components/sections/ImpactCounter";
 import CampaignProgress from "@/components/sections/CampaignProgress";
 import ProjectsPreview from "@/components/sections/ProjectsPreview";
@@ -26,6 +27,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
+      <FounderLegacy />
       <ImpactCounter />
       <PhotoGallery />
       <CampaignProgress />

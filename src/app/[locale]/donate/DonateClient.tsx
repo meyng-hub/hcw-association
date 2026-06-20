@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from "react";
 import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
 import {
   Heart,
   CreditCard,
@@ -12,6 +11,7 @@ import {
   ExternalLink,
   CheckCircle2,
 } from "lucide-react";
+import { HELLOASSO, MONTHLY_PROGRAM } from "@/lib/constants";
 
 const PRESETS = [20, 50, 100, 500] as const;
 
@@ -85,7 +85,8 @@ export default function DonateClient() {
 
   const [selectedPreset, setSelectedPreset] = useState<Preset | null>(50);
   const [customAmount, setCustomAmount] = useState("");
-  const [isMonthly, setIsMonthly] = useState(false);
+  // Monthly defaults ON — recurring giving is the highest-leverage revenue lever.
+  const [isMonthly, setIsMonthly] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -223,11 +224,20 @@ export default function DonateClient() {
                 </button>
               </div>
               {isMonthly && (
-                <p className="mt-2 text-xs text-teal-700">
-                  {isFr
-                    ? "Les dons mensuels sont prélevés par carte ou SEPA. Annulable à tout moment."
-                    : "Monthly gifts are collected by card or SEPA. Cancel anytime."}
-                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
+                    <Heart
+                      className="h-3 w-3 fill-amber-500 text-amber-500"
+                      aria-hidden="true"
+                    />
+                    {isFr ? MONTHLY_PROGRAM.fr : MONTHLY_PROGRAM.en}
+                  </span>
+                  <span className="text-xs text-teal-700">
+                    {isFr
+                      ? "Prélevé chaque mois · annulable à tout moment."
+                      : "Charged monthly · cancel anytime."}
+                  </span>
+                </div>
               )}
             </div>
 
@@ -423,8 +433,8 @@ export default function DonateClient() {
               </h2>
               <p className="mb-6 text-sm text-gray-500">
                 {isFr
-                  ? "Paiement crypté, traité par Stripe"
-                  : "Encrypted payment processed by Stripe"}
+                  ? "Don sécurisé via HelloAsso — reçu fiscal automatique"
+                  : "Secure giving via HelloAsso — automatic tax receipt"}
               </p>
 
               {/* Amount summary */}
@@ -461,15 +471,62 @@ export default function DonateClient() {
                 </div>
               )}
 
-              {/* Primary CTA — Stripe */}
+              {/* Primary CTA — HelloAsso (0% fee · automatic tax receipt) */}
+              <a
+                href={HELLOASSO.formUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-disabled={!effectiveAmount || effectiveAmount < 5}
+                className={`flex w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-semibold text-white shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
+                  effectiveAmount && effectiveAmount >= 5
+                    ? "bg-amber-500 hover:bg-amber-600 active:scale-95"
+                    : "pointer-events-none bg-amber-300 opacity-60"
+                }`}
+              >
+                <Heart className="h-5 w-5" aria-hidden="true" />
+                {effectiveAmount && effectiveAmount >= 5
+                  ? isFr
+                    ? `Donner €${effectiveAmount}${isMonthly ? "/mois" : ""} via HelloAsso`
+                    : `Give €${effectiveAmount}${isMonthly ? "/mo" : ""} via HelloAsso`
+                  : isFr
+                    ? "Faire un don via HelloAsso"
+                    : "Donate via HelloAsso"}
+                <ExternalLink
+                  className="h-4 w-4 opacity-80"
+                  aria-hidden="true"
+                />
+              </a>
+
+              {/* HelloAsso trust badges */}
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
+                  0% {isFr ? "de frais" : "platform fee"}
+                </span>
+                <span className="rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">
+                  {isFr ? "Reçu fiscal automatique" : "Automatic tax receipt"}
+                </span>
+              </div>
+
+              {/* Divider */}
+              <div className="my-6 flex items-center gap-3">
+                <div className="h-px flex-1 bg-gray-100" />
+                <span className="text-xs text-gray-400">
+                  {isFr
+                    ? "ou payer directement par carte"
+                    : "or pay directly by card"}
+                </span>
+                <div className="h-px flex-1 bg-gray-100" />
+              </div>
+
+              {/* Secondary CTA — Stripe card backup */}
               <button
                 type="button"
                 onClick={handleCheckout}
                 disabled={loading || !effectiveAmount || effectiveAmount < 5}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-teal-600 py-4 text-base font-semibold text-white shadow-md transition-all hover:bg-teal-700 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-teal-200 bg-white py-3.5 text-sm font-semibold text-teal-700 transition-all hover:bg-teal-50 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
                 aria-busy={loading}
               >
-                <CreditCard className="h-5 w-5" aria-hidden="true" />
+                <CreditCard className="h-4 w-4" aria-hidden="true" />
                 {loading
                   ? isFr
                     ? "Redirection…"
@@ -481,14 +538,14 @@ export default function DonateClient() {
 
               {/* Payment method logos */}
               <div
-                className="mt-4 flex flex-wrap items-center justify-center gap-2"
+                className="mt-3 flex flex-wrap items-center justify-center gap-2"
                 aria-label={
                   isFr
                     ? "Moyens de paiement acceptés"
                     : "Accepted payment methods"
                 }
               >
-                {["Visa", "Mastercard", "Google Pay", "Apple Pay"].map(
+                {["Visa", "Mastercard", "Google Pay", "Apple Pay", "SEPA"].map(
                   (method) => (
                     <span
                       key={method}
@@ -505,39 +562,8 @@ export default function DonateClient() {
                 <Lock className="h-3.5 w-3.5" aria-hidden="true" />
                 <span>
                   {isFr
-                    ? "Paiement sécurisé SSL · Stripe"
-                    : "SSL Secured · Stripe"}
-                </span>
-              </div>
-
-              {/* Divider */}
-              <div className="my-6 flex items-center gap-3">
-                <div className="h-px flex-1 bg-gray-100" />
-                <span className="text-xs text-gray-400">
-                  {isFr ? "ou" : "or"}
-                </span>
-                <div className="h-px flex-1 bg-gray-100" />
-              </div>
-
-              {/* HelloAsso secondary CTA */}
-              <a
-                href="https://www.helloasso.com/associations/hcw"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gray-50 py-3.5 text-sm font-medium text-gray-700 ring-1 ring-gray-200 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
-              >
-                <ExternalLink
-                  className="h-4 w-4 text-gray-400"
-                  aria-hidden="true"
-                />
-                {t("helloasso_title")}
-              </a>
-              <div className="mt-2 flex items-center justify-center gap-1.5">
-                <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-                  0%{" "}
-                  {isFr
-                    ? "frais pour les associations FR"
-                    : "fees for French associations"}
+                    ? "Paiement sécurisé · chiffré SSL"
+                    : "Secure payment · SSL encrypted"}
                 </span>
               </div>
 

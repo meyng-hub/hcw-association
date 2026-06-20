@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { MessageCircle, Heart, Send } from "lucide-react";
-import { SOCIAL, CONTACT } from "@/lib/constants";
+import { SOCIAL, CONTACT, REGISTRATION } from "@/lib/constants";
 
 /* ---------- Inline SVG brand icons (not in lucide-react) ---------- */
 function FbIcon() {
@@ -270,6 +270,12 @@ export default function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-gray-500 sm:flex-row">
           <p>
             © {new Date().getFullYear()} HCW — {t("footer.rights")}
+            {REGISTRATION.rna && (
+              <span className="ml-2 text-gray-600">
+                · {locale === "fr" ? "Association loi 1901" : "Non-profit"} ·
+                RNA {REGISTRATION.rna}
+              </span>
+            )}
           </p>
           <div className="flex gap-4">
             <Link

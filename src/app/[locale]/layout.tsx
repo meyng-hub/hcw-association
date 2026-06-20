@@ -60,7 +60,9 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!routing.locales.includes(locale as "en" | "fr")) notFound();
-  const messages = await getMessages();
+  // Pass locale explicitly — without it, getMessages()/useLocale() fall back to
+  // the default locale (fr), so every /en route silently renders French.
+  const messages = await getMessages({ locale });
 
   return (
     <html
@@ -69,7 +71,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body className="bg-cream-50 font-sans text-charcoal-900 antialiased">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-teal-600 focus:px-4 focus:py-2 focus:text-white"

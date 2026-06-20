@@ -37,6 +37,30 @@ export const DONATION_IMPACT: Record<number, string> = {
 
 export const DONATION_PRESETS = [20, 50, 100, 500];
 
+// ── Donation rails ────────────────────────────────────────────────
+// HelloAsso is the PRIMARY rail (0% platform fee, automatic Cerfa tax
+// receipts, trusted by French donors). Stripe is the card backup.
+// Create the form at helloasso.com and set NEXT_PUBLIC_HELLOASSO_URL.
+export const HELLOASSO = {
+  formUrl:
+    process.env.NEXT_PUBLIC_HELLOASSO_URL ??
+    "https://www.helloasso.com/associations/hcw/formulaires/1/widget",
+} as const;
+
+// Named recurring program (charity:water's "The Spring" pattern).
+export const MONTHLY_PROGRAM = {
+  fr: "Le Cercle Charles Wenezoui",
+  en: "The Charles Wenezoui Circle",
+} as const;
+
+// ⚠️ PLACEHOLDERS — replace with the association's REAL legal identifiers
+// before production launch. Shipping a fabricated RNA is worse than none.
+export const REGISTRATION = {
+  rna: "", // e.g. "W601001234" — Répertoire National des Associations
+  siret: "", // optional
+  jorf: "", // Journal Officiel publication reference/date
+} as const;
+
 export const PROJECTS = [
   {
     id: "endara-challenge",
