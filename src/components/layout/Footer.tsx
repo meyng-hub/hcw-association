@@ -145,7 +145,6 @@ export default function Footer() {
                 { href: "/about", labelFr: "À propos", labelEn: "About" },
                 { href: "/projects", labelFr: "Projets", labelEn: "Projects" },
                 { href: "/impact", labelFr: "Impact", labelEn: "Impact" },
-                { href: "/news", labelFr: "Actualités", labelEn: "News" },
                 { href: "/shop", labelFr: "Boutique", labelEn: "Shop" },
                 {
                   href: "/volunteer",

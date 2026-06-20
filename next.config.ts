@@ -12,6 +12,12 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "drive.google.com" },
     ],
   },
+  async redirects() {
+    // Add 301s from old Wix URLs to new paths during the migration, e.g.:
+    //   { source: "/home", destination: "/fr", permanent: true },
+    //   { source: "/donate-old", destination: "/fr/donate", permanent: true },
+    return [];
+  },
   async headers() {
     return [
       {

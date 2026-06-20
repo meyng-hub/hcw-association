@@ -42,8 +42,12 @@ export async function generateMetadata({
       siteName: "HCW",
       locale: locale === "fr" ? "fr_FR" : "en_US",
       type: "website",
+      images: [{ url: "/images/endara-students.png", alt: "HCW" }],
     },
-    twitter: { card: "summary_large_image" },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/images/endara-students.png"],
+    },
   };
 }
 
