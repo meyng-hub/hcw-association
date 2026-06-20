@@ -41,26 +41,31 @@ Resend (email) · Brevo (newsletter) · Plausible (cookieless analytics).
 
 ## ⚠️ Placeholders to replace before production launch
 
-- **🔴 FABRICATED placeholder content — must replace or remove before launch.**
-  The News articles (`NEWS_ARTICLES` in [`[locale]/news/page.tsx`](src/app/[locale]/news/page.tsx),
-  `RECENT_NEWS` in [`NewsPreview.tsx`](src/components/sections/NewsPreview.tsx)) and
-  the campaign figures in [`CampaignProgress.tsx`](src/components/sections/CampaignProgress.tsx)
-  are **AI-generated placeholders** that name specific people, awards, partners,
-  dates and amounts (e.g. "IAAP award / Alexandra Nothnagel", "Yakandja orphanage",
-  "WEIRAM partnership", "€70,000 goal reached", "€350 raised / 12 donors"). These
-  are **not verified and likely did not happen as written** — publishing them
-  would be fabrication that damages the charity's credibility. Replace with real
-  news/figures or remove the News + Campaign sections before going live.
-- `REGISTRATION.rna` in [`src/lib/constants.ts`](src/lib/constants.ts) — real RNA
-  number (footer trust signal stays hidden until set).
-- `HELLOASSO.formUrl` — the association's real HelloAsso donation form URL.
-- **Verify the impact numbers** (`IMPACT_STATS`: 800 prizes / 90,000 students /
-  €70,000) against real records before headlining — carried over from the Wix
-  site, not yet independently confirmed.
-- **Tax-receipt claim** ("66% déductible / reçu fiscal") requires the association
-  to hold _intérêt général_ status — confirm before publishing.
-- **Sanity** is unprovisioned (client falls back to `projectId: "placeholder"`).
-  Create the project and set `NEXT_PUBLIC_SANITY_*` for news/campaigns to render.
+**Resolved (2026-06-20):**
+
+- ✅ **Registration** set from the INSEE SIRENE avis: RNA `W602001421`, SIREN
+  `841 629 157`, SIRET `…00014`. Footer shows it. Founding confirmed **09/03/2009**
+  (validates all "depuis 2009").
+- ✅ **Impact figure corrected** — students reached is **9,000+** (owner-confirmed;
+  was a 10× "90,000" error) since 2009. `IMPACT_STATS.students = 9_000`.
+- ✅ **Fabricated News/Campaign hidden** — removed from homepage + nav; `/news` is a
+  "coming soon" stub. `NewsPreview.tsx` / `CampaignProgress.tsx` remain in the repo
+  (unused) with placeholder data — replace before re-enabling.
+- ✅ **Donations are card-first** — Stripe leads; HelloAsso auto-promotes to primary
+  once `NEXT_PUBLIC_HELLOASSO_URL` is set. Monthly defaults ON; program "Le Cercle
+  Charles Wenezoui".
+- ✅ **Tax-receipt claim softened** to "un reçu fiscal pourra être adressé, sous
+  réserve d'éligibilité" pending confirmation of _intérêt général_ status.
+
+**Still open before public launch:**
+
+- **HelloAsso form URL** — create the form, set `NEXT_PUBLIC_HELLOASSO_URL`.
+- **Confirm _intérêt général_ status** — only then restore a definite "66% / reçu
+  fiscal" promise.
+- **Verify remaining figures** (`800` prizes, `€70,000` raised) against real records.
+- **Sanity** is unprovisioned (`projectId: "placeholder"`) — optional, since
+  News/Campaign are hidden; set `NEXT_PUBLIC_SANITY_*` for editable content.
+- **Email + DNS cutover** — see `MIGRATION-CHECKLIST.md` (Jul 9 deadline).
 
 ## Build / verify
 
