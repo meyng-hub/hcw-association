@@ -71,8 +71,8 @@ export default function MerciPage() {
           {/* Receipt note */}
           <p className="mt-3 text-sm text-teal-200">
             {isFr
-              ? "Vous recevrez un reçu fiscal par email sous 48h."
-              : "You'll receive a tax receipt by email within 48 hours."}
+              ? "Si l'association y est éligible, un reçu fiscal vous sera adressé par email."
+              : "If the association is eligible, a tax receipt will be emailed to you."}
           </p>
         </div>
       </section>

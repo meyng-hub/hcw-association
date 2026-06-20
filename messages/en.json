@@ -65,7 +65,7 @@
     "paypal": "PayPal",
     "helloasso_title": "Donate via HelloAsso",
     "helloasso_desc": "0% platform fee — donors pay an optional contribution.",
-    "tax_info": "Donation tax-deductible for French residents (66% of amount).",
+    "tax_info": "A tax receipt may be issued, subject to the association's eligibility.",
     "success_title": "Thank you for your donation!",
     "success_message": "You will receive a receipt by email. Your generosity changes lives.",
     "frequency_label": "Donation frequency",
@@ -84,7 +84,7 @@
     "merci_share_prompt": "Share and encourage others to give:",
     "merci_back_home": "Back to home",
     "merci_see_projects": "See our projects",
-    "merci_receipt_note": "You'll receive a tax receipt by email within 48 hours."
+    "merci_receipt_note": "If the association is eligible, a tax receipt will be emailed to you."
   },
   "projects": {
     "title": "Our Projects",

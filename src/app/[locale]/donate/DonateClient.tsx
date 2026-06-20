@@ -86,6 +86,8 @@ export default function DonateClient({
   const t = useTranslations("donate");
   const locale = useLocale();
   const isFr = locale === "fr";
+  // HelloAsso leads only once its real form URL is configured; otherwise card.
+  const helloAssoEnabled = Boolean(HELLOASSO.formUrl);
 
   // Honour an ?amount= passed from the homepage donate section.
   const presetMatch =
@@ -405,10 +407,10 @@ export default function DonateClient({
                       aria-hidden="true"
                     />
                   ),
-                  label: isFr ? "Reçu fiscal 66%" : "Tax receipt 66%",
+                  label: isFr ? "Reçu fiscal" : "Tax receipt",
                   sub: isFr
-                    ? "Pour résidents français"
-                    : "For French residents",
+                    ? "Sous réserve d'éligibilité"
+                    : "Subject to eligibility",
                 },
                 {
                   icon: (
@@ -444,9 +446,13 @@ export default function DonateClient({
                 {t("payment_title")}
               </h2>
               <p className="mb-6 text-sm text-gray-500">
-                {isFr
-                  ? "Don sécurisé via HelloAsso — reçu fiscal automatique"
-                  : "Secure giving via HelloAsso — automatic tax receipt"}
+                {helloAssoEnabled
+                  ? isFr
+                    ? "Don sécurisé via HelloAsso"
+                    : "Secure giving via HelloAsso"
+                  : isFr
+                    ? "Paiement sécurisé par carte"
+                    : "Secure card payment"}
               </p>
 
               {/* Amount summary */}
@@ -483,70 +489,95 @@ export default function DonateClient({
                 </div>
               )}
 
-              {/* Primary CTA — HelloAsso (0% fee · automatic tax receipt) */}
-              <a
-                href={HELLOASSO.formUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-disabled={!effectiveAmount || effectiveAmount < 5}
-                className={`flex w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-semibold text-white shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
-                  effectiveAmount && effectiveAmount >= 5
-                    ? "bg-amber-500 hover:bg-amber-600 active:scale-95"
-                    : "pointer-events-none bg-amber-300 opacity-60"
-                }`}
-              >
-                <Heart className="h-5 w-5" aria-hidden="true" />
-                {effectiveAmount && effectiveAmount >= 5
-                  ? isFr
-                    ? `Donner €${effectiveAmount}${isMonthly ? "/mois" : ""} via HelloAsso`
-                    : `Give €${effectiveAmount}${isMonthly ? "/mo" : ""} via HelloAsso`
-                  : isFr
-                    ? "Faire un don via HelloAsso"
-                    : "Donate via HelloAsso"}
-                <ExternalLink
-                  className="h-4 w-4 opacity-80"
-                  aria-hidden="true"
-                />
-              </a>
+              {helloAssoEnabled ? (
+                <>
+                  {/* Primary CTA — HelloAsso (0% platform fee) */}
+                  <a
+                    href={HELLOASSO.formUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-disabled={!effectiveAmount || effectiveAmount < 5}
+                    className={`flex w-full items-center justify-center gap-2 rounded-xl py-4 text-base font-semibold text-white shadow-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
+                      effectiveAmount && effectiveAmount >= 5
+                        ? "bg-amber-500 hover:bg-amber-600 active:scale-95"
+                        : "pointer-events-none bg-amber-300 opacity-60"
+                    }`}
+                  >
+                    <Heart className="h-5 w-5" aria-hidden="true" />
+                    {effectiveAmount && effectiveAmount >= 5
+                      ? isFr
+                        ? `Donner €${effectiveAmount}${isMonthly ? "/mois" : ""} via HelloAsso`
+                        : `Give €${effectiveAmount}${isMonthly ? "/mo" : ""} via HelloAsso`
+                      : isFr
+                        ? "Faire un don via HelloAsso"
+                        : "Donate via HelloAsso"}
+                    <ExternalLink
+                      className="h-4 w-4 opacity-80"
+                      aria-hidden="true"
+                    />
+                  </a>
 
-              {/* HelloAsso trust badges */}
-              <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
-                <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
-                  0% {isFr ? "de frais" : "platform fee"}
-                </span>
-                <span className="rounded-full bg-teal-50 px-2.5 py-0.5 text-xs font-medium text-teal-700">
-                  {isFr ? "Reçu fiscal automatique" : "Automatic tax receipt"}
-                </span>
-              </div>
+                  {/* HelloAsso trust badge */}
+                  <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
+                    <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
+                      0% {isFr ? "de frais" : "platform fee"}
+                    </span>
+                  </div>
 
-              {/* Divider */}
-              <div className="my-6 flex items-center gap-3">
-                <div className="h-px flex-1 bg-gray-100" />
-                <span className="text-xs text-gray-400">
-                  {isFr
-                    ? "ou payer directement par carte"
-                    : "or pay directly by card"}
-                </span>
-                <div className="h-px flex-1 bg-gray-100" />
-              </div>
+                  {/* Divider */}
+                  <div className="my-6 flex items-center gap-3">
+                    <div className="h-px flex-1 bg-gray-100" />
+                    <span className="text-xs text-gray-400">
+                      {isFr
+                        ? "ou payer directement par carte"
+                        : "or pay directly by card"}
+                    </span>
+                    <div className="h-px flex-1 bg-gray-100" />
+                  </div>
 
-              {/* Secondary CTA — Stripe card backup */}
-              <button
-                type="button"
-                onClick={handleCheckout}
-                disabled={loading || !effectiveAmount || effectiveAmount < 5}
-                className="flex w-full items-center justify-center gap-2 rounded-xl border border-teal-200 bg-white py-3.5 text-sm font-semibold text-teal-700 transition-all hover:bg-teal-50 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
-                aria-busy={loading}
-              >
-                <CreditCard className="h-4 w-4" aria-hidden="true" />
-                {loading
-                  ? isFr
-                    ? "Redirection…"
-                    : "Redirecting…"
-                  : isFr
-                    ? "Payer par carte"
-                    : "Pay by card"}
-              </button>
+                  {/* Secondary CTA — Stripe card */}
+                  <button
+                    type="button"
+                    onClick={handleCheckout}
+                    disabled={
+                      loading || !effectiveAmount || effectiveAmount < 5
+                    }
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-teal-200 bg-white py-3.5 text-sm font-semibold text-teal-700 transition-all hover:bg-teal-50 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                    aria-busy={loading}
+                  >
+                    <CreditCard className="h-4 w-4" aria-hidden="true" />
+                    {loading
+                      ? isFr
+                        ? "Redirection…"
+                        : "Redirecting…"
+                      : isFr
+                        ? "Payer par carte"
+                        : "Pay by card"}
+                  </button>
+                </>
+              ) : (
+                /* Primary CTA — Stripe card (HelloAsso not yet configured) */
+                <button
+                  type="button"
+                  onClick={handleCheckout}
+                  disabled={loading || !effectiveAmount || effectiveAmount < 5}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-amber-500 py-4 text-base font-semibold text-white shadow-md transition-all hover:bg-amber-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                  aria-busy={loading}
+                >
+                  <CreditCard className="h-5 w-5" aria-hidden="true" />
+                  {loading
+                    ? isFr
+                      ? "Redirection…"
+                      : "Redirecting…"
+                    : effectiveAmount && effectiveAmount >= 5
+                      ? isFr
+                        ? `Donner €${effectiveAmount}${isMonthly ? "/mois" : ""} par carte`
+                        : `Give €${effectiveAmount}${isMonthly ? "/mo" : ""} by card`
+                      : isFr
+                        ? "Payer par carte"
+                        : "Pay by card"}
+                </button>
+              )}
 
               {/* Payment method logos */}
               <div

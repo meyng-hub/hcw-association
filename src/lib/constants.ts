@@ -41,10 +41,10 @@ export const DONATION_PRESETS = [20, 50, 100, 500];
 // HelloAsso is the PRIMARY rail (0% platform fee, automatic Cerfa tax
 // receipts, trusted by French donors). Stripe is the card backup.
 // Create the form at helloasso.com and set NEXT_PUBLIC_HELLOASSO_URL.
+// Set NEXT_PUBLIC_HELLOASSO_URL to the real form URL to make HelloAsso the
+// primary donation rail. While empty, the donate page leads with card (Stripe).
 export const HELLOASSO = {
-  formUrl:
-    process.env.NEXT_PUBLIC_HELLOASSO_URL ??
-    "https://www.helloasso.com/associations/hcw/formulaires/1/widget",
+  formUrl: process.env.NEXT_PUBLIC_HELLOASSO_URL ?? "",
 } as const;
 
 // Named recurring program (charity:water's "The Spring" pattern).

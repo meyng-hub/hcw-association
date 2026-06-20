@@ -65,7 +65,7 @@
     "paypal": "PayPal",
     "helloasso_title": "Donner via HelloAsso",
     "helloasso_desc": "0% de frais de plateforme — les donateurs paient une contribution optionnelle.",
-    "tax_info": "Don déductible des impôts pour les résidents français (66% du montant).",
+    "tax_info": "Un reçu fiscal pourra être adressé, sous réserve de l'éligibilité de l'association.",
     "success_title": "Merci pour votre don !",
     "success_message": "Vous recevrez un reçu par email. Votre générosité change des vies.",
     "frequency_label": "Fréquence du don",
@@ -84,7 +84,7 @@
     "merci_share_prompt": "Partagez et encouragez d'autres personnes à donner :",
     "merci_back_home": "Retour à l'accueil",
     "merci_see_projects": "Voir nos projets",
-    "merci_receipt_note": "Vous recevrez un reçu fiscal par email sous 48h."
+    "merci_receipt_note": "Si l'association y est éligible, un reçu fiscal vous sera adressé par email."
   },
   "projects": {
     "title": "Nos projets",
