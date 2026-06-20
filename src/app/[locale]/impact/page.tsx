@@ -254,7 +254,7 @@ export default async function ImpactPage({
               icon={<Trophy className="h-7 w-7" aria-hidden="true" />}
             />
             <ImpactCounterAnimated
-              value={90000}
+              value={9000}
               suffix="+"
               label={isFr ? "élèves touchés" : "students reached"}
               icon={<Users className="h-7 w-7" aria-hidden="true" />}

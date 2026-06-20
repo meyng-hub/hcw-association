@@ -69,11 +69,11 @@ export default function DonateSection() {
                 </div>
                 <div className="bg-teal-600/90 backdrop-blur-sm rounded-xl p-4 text-white">
                   <p className="text-sm font-semibold">
-                    90 000+{" "}
+                    9 000+{" "}
                     {locale === "fr" ? "élèves aidés" : "students helped"}
                   </p>
                   <p className="text-xs text-teal-200 mt-1">
-                    {locale === "fr" ? "depuis 2013" : "since 2013"}
+                    {locale === "fr" ? "depuis 2009" : "since 2009"}
                   </p>
                 </div>
               </div>

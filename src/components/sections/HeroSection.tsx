@@ -103,7 +103,7 @@ export default function HeroSection() {
             </div>
             <div className="w-px bg-teal-600" aria-hidden="true" />
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-amber-400">90 000+</span>
+              <span className="text-lg font-bold text-amber-400">9 000+</span>
               <span>
                 {locale === "fr" ? "élèves touchés" : "students reached"}
               </span>

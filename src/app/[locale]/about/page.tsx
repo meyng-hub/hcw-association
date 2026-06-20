@@ -98,8 +98,8 @@ const TIMELINE = [
   },
   {
     year: 2025,
-    fr: "90 000 élèves touchés depuis la fondation — le legs du Docteur Wenezoui vivant à travers chacun d'eux",
-    en: "90,000 students reached since founding — Dr. Wenezoui's legacy living through every one of them",
+    fr: "9 000+ élèves touchés depuis la fondation — le legs du Docteur Wenezoui vivant à travers chacun d'eux",
+    en: "9,000+ students reached since founding — Dr. Wenezoui's legacy living through every one of them",
     highlight: true,
   },
 ];
@@ -394,7 +394,7 @@ export default async function AboutPage({
               <div className="mt-8 grid grid-cols-3 gap-4">
                 <div className="text-center">
                   <p className="font-serif text-3xl font-bold text-teal-600">
-                    90K+
+                    9 000+
                   </p>
                   <p className="mt-1 text-xs text-gray-500">
                     {isFr ? "élèves touchés" : "students reached"}

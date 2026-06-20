@@ -20,7 +20,7 @@ export const CONTACT = {
 
 export const IMPACT_STATS = {
   prizes: 800,
-  students: 90_000,
+  students: 9_000,
   donations: 70_000,
   projects: 6,
 } as const;
