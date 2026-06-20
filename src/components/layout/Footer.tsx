@@ -272,7 +272,7 @@ export default function Footer() {
             {REGISTRATION.rna && (
               <span className="ml-2 text-gray-600">
                 · {locale === "fr" ? "Association loi 1901" : "Non-profit"} ·
-                RNA {REGISTRATION.rna}
+                RNA {REGISTRATION.rna} · SIREN {REGISTRATION.siren}
               </span>
             )}
           </p>

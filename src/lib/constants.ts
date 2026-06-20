@@ -53,12 +53,11 @@ export const MONTHLY_PROGRAM = {
   en: "The Charles Wenezoui Circle",
 } as const;
 
-// ⚠️ PLACEHOLDERS — replace with the association's REAL legal identifiers
-// before production launch. Shipping a fabricated RNA is worse than none.
+// Official identifiers — Association Charles Wenezoui (INSEE SIRENE, 2026-06-20).
 export const REGISTRATION = {
-  rna: "", // e.g. "W601001234" — Répertoire National des Associations
-  siret: "", // optional
-  jorf: "", // Journal Officiel publication reference/date
+  rna: "W602001421", // Répertoire National des Associations
+  siren: "841 629 157",
+  siret: "841 629 157 00014",
 } as const;
 
 export const PROJECTS = [
