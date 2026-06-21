@@ -82,3 +82,18 @@ CI: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) — type-chec
 
 See [`SESSION-HANDOFF.md`](SESSION-HANDOFF.md) for the full runbook (Wix
 auto-renew, IONOS DNS, email continuity, n8n subdomain, cutover order).
+
+## gstack (recommended)
+
+This project uses [gstack](https://github.com/garrytan/gstack) for AI-assisted workflows.
+Install it for the best experience:
+
+```bash
+git clone --depth 1 https://github.com/garrytan/gstack.git ~/.claude/skills/gstack
+cd ~/.claude/skills/gstack && ./setup --team
+```
+
+Skills are installed with the **`gstack-` prefix** (to avoid clashing with the
+MEYNG project skills like `/office-hours`, `/ship`, `/retro`): use
+`/gstack-qa`, `/gstack-review`, `/gstack-cso`, `/gstack-investigate`,
+`/gstack-ship`, `/gstack-browse`. Use `/gstack-browse` for all web browsing.

@@ -16,15 +16,15 @@ money can be paid out, so start early.
 
 Your association's official details (copy-paste these):
 
-| Field | Value |
-| --- | --- |
-| Nom de l'association | **ASSOCIATION CHARLES WENEZOUI** |
-| N° RNA | **W602001421** |
-| N° SIREN | **841 629 157** |
-| N° SIRET | **841 629 157 00014** |
-| Adresse | **13 rue Anatole France, 60290 Rantigny** |
-| Date de création | **09/03/2009** |
-| Email | **contact@h-cw.org** |
+| Field                | Value                                     |
+| -------------------- | ----------------------------------------- |
+| Nom de l'association | **ASSOCIATION CHARLES WENEZOUI**          |
+| N° RNA               | **W602001421**                            |
+| N° SIREN             | **841 629 157**                           |
+| N° SIRET             | **841 629 157 00014**                     |
+| Adresse              | **13 rue Anatole France, 60290 Rantigny** |
+| Date de création     | **09/03/2009**                            |
+| Email                | **contact@h-cw.org**                      |
 
 **The one thing you must find yourself:** the association's **bank details
 (RIB / IBAN)** — HelloAsso sends the collected donations to this account. Get the
@@ -76,7 +76,7 @@ one good **photo** of the children/classroom for the form's banner.
 7. **Reçu fiscal (tax receipt):** HelloAsso will ask if your association can issue
    tax receipts.
    - ✅ If you have **already given donors a reçu fiscal before** (or confirmed your
-     *intérêt général* status), turn this ON — donors get automatic receipts.
+     _intérêt général_ status), turn this ON — donors get automatic receipts.
    - ⚠️ If you're **not sure**, leave it **OFF** for now (you can switch it on later
      once confirmed). Don't claim it if unsure.
 
@@ -93,6 +93,7 @@ one good **photo** of the children/classroom for the form's banner.
 ## Part E — Send me the link
 
 Paste that link to me in the chat, e.g.:
+
 > "HelloAsso link: https://www.helloasso.com/associations/association-charles-wenezoui/formulaires/1/widget"
 
 ---
@@ -101,7 +102,7 @@ Paste that link to me in the chat, e.g.:
 
 1. Set it as `NEXT_PUBLIC_HELLOASSO_URL` on the site.
 2. The big donate button automatically becomes **"Donner via HelloAsso"** (0% fee
-   + tax receipt), with card payment as the backup.
+   - tax receipt), with card payment as the backup.
 3. Redeploy and test it end-to-end, then confirm it works.
 
 ## Common questions
