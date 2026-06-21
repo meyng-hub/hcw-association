@@ -35,16 +35,18 @@ export async function POST(req: NextRequest) {
     //   text: `From: ${name} <${email}>\nSubject: ${subject}\n\n${message}`,
     // });
 
-    console.log("Contact form submission:", {
-      name,
-      email,
-      subject,
+    // Do not log PII (name/email) to server logs — GDPR. The email send is the record.
+    console.log("Contact form submission received", {
+      subject: subject || "(none)",
       messageLength: message.length,
     });
 
     return NextResponse.json({ success: true });
   } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : String(error);
-    return NextResponse.json({ error: msg }, { status: 500 });
+    console.error("[contact] failed:", error);
+    return NextResponse.json(
+      { error: "An internal error occurred" },
+      { status: 500 },
+    );
   }
 }

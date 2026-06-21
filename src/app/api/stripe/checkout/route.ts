@@ -90,8 +90,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url });
   } catch (error: unknown) {
-    const message =
-      error instanceof Error ? error.message : "Internal server error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    // Log the real error server-side; never leak internals (incl. config state) to the client.
+    console.error("[stripe/checkout] failed:", error);
+    return NextResponse.json(
+      { error: "An internal error occurred" },
+      { status: 500 },
+    );
   }
 }
