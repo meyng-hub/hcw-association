@@ -8,7 +8,7 @@ Doctor of Law & diplomat); the association was founded in 2009 by his son in his
 memory. Bilingual **FR (default) / EN**. Audience: francophone donors in
 France/Europe + diaspora, plus institutional partners.
 
-- **Live (legacy):** https://www.h-cw.org — still on **Wix** (migrating off).
+- **Live:** https://www.h-cw.org — on **Vercel** (migrated off Wix 2026-06-21; currently in maintenance mode). Read [`START-HERE.md`](START-HERE.md) first.
 - **Repo:** https://github.com/meyng-hub/hcw-association (default branch `master`)
 - **Host (target):** Vercel — project `hcw-association` (team `team_wONuXem8DRnuW9clO8GDXkaZ`)
 

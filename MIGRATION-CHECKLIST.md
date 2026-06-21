@@ -1,7 +1,11 @@
 # HCW — Wix → Vercel cutover checklist
 
-**Hard deadline: Jul 9, 2026** (Wix premium expires; after that the Wix site loses
-`h-cw.org` and shows Wix branding). Auto-renew is OFF on both Wix subscriptions.
+> ✅ **DONE 2026-06-21.** The cutover is complete: `h-cw.org` is on Vercel
+> nameservers, serving the new site (HTTPS valid); Google email + `n8n` preserved.
+> This doc is kept as the record + rollback reference. See [`START-HERE.md`](START-HERE.md).
+
+**Original deadline: Jul 9, 2026** (Wix premium expires). Auto-renew is OFF on both
+Wix subscriptions; nothing depends on Wix anymore.
 
 Based on a live DNS audit of `h-cw.org` on 2026-06-20 (records below are real).
 
