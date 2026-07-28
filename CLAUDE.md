@@ -1,6 +1,20 @@
 @AGENTS.md
 
-# CLAUDE.md — HCW (Humanity, Culture & Welfare)
+# CLAUDE.md — HCW (Hervé-Charles Wenezoui)
+
+> **Naming — unresolved between the two repos, do not "fix" either side unilaterally.**
+> This repo uses **"HCW — Humanity, Culture & Welfare"** in 14 source locations, including
+> `src/lib/constants.ts` (`SITE_NAME`), `src/app/[locale]/layout.tsx` (title metadata), the
+> **legal page's "Organisation name"**, both privacy pages, the Stripe descriptor, and
+> `messages/{en,fr}.json`. `src/app/[locale]/about/page.tsx:266` presents it as a **deliberate
+> double meaning** — the values *and* the founder's initials.
+>
+> The newer `C:\hcw-website` repo takes the opposite line: its `START-HERE.md` says
+> *"HCW = Hervé-Charles Wenezoui (never 'Humanity, Culture & Welfare')"*, and **that is what is
+> live** — `h-cw.org/fr` returns the title `HCW — Hervé-Charles Wenezoui` (verified 2026-07-28).
+>
+> **This is a decision for the founder, not a bug to patch.** Whichever way it goes, it must be
+> applied consistently across both repos and the live legal page.
 
 Website for **HCW**, an education & culture charity operating in the Central
 African Republic. HCW carries the initials of **Hervé-Charles Wenezoui** (a CAR
@@ -8,7 +22,13 @@ Doctor of Law & diplomat); the association was founded in 2009 by his son in his
 memory. Bilingual **FR (default) / EN**. Audience: francophone donors in
 France/Europe + diaspora, plus institutional partners.
 
-- **Live:** https://www.h-cw.org — on **Vercel** (migrated off Wix 2026-06-21; currently in maintenance mode). Read [`START-HERE.md`](START-HERE.md) first.
+- **Live:** https://www.h-cw.org — on **Vercel** (migrated off Wix 2026-06-21). **Verified live
+  2026-07-28:** `https://h-cw.org` → 200, redirects to `/fr`, `X-Matched-Path: /[locale]`, title
+  `HCW — Hervé-Charles Wenezoui`. It is serving the Next.js app, **not** the maintenance page.
+  Read [`START-HERE.md`](START-HERE.md) first.
+- ⚠️ **Two Vercel projects have historically pointed at this domain** (`hcw-association` and
+  `hcw-website`). Before concluding anything about a deploy, check *which* project the domain is
+  aliased to — a green CI run on one repo proves nothing about what the domain serves.
 - **Repo:** https://github.com/meyng-hub/hcw-association (default branch `master`)
 - **Host (target):** Vercel — project `hcw-association` (team `team_wONuXem8DRnuW9clO8GDXkaZ`)
 
