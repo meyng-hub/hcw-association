@@ -24,11 +24,23 @@ France/Europe + diaspora, plus institutional partners.
 
 - **Live:** https://www.h-cw.org — on **Vercel** (migrated off Wix 2026-06-21). **Verified live
   2026-07-28:** `https://h-cw.org` → 200, redirects to `/fr`, `X-Matched-Path: /[locale]`, title
-  `HCW — Hervé-Charles Wenezoui`. It is serving the Next.js app, **not** the maintenance page.
-  Read [`START-HERE.md`](START-HERE.md) first.
-- ⚠️ **Two Vercel projects have historically pointed at this domain** (`hcw-association` and
-  `hcw-website`). Before concluding anything about a deploy, check *which* project the domain is
-  aliased to — a green CI run on one repo proves nothing about what the domain serves.
+  `HCW — Hervé-Charles Wenezoui`. The domain serves a live Next.js site — **not** the maintenance
+  page it served earlier in July — but see the next bullet: **that site is built from
+  `hcw-website`, not from this repo.** Read [`START-HERE.md`](START-HERE.md) first.
+- 🚨 **`h-cw.org` IS NOT SERVED BY THIS REPO. It is served by `C:\hcw-website`
+  (`meyng-hub/hcw-website`, branch `main`).** Proven 2026-07-28 by title mismatch: both
+  `master` and `feat/redesign-wix-migration` set
+  `default: "HCW — Humanity, Culture & Welfare"` in `src/app/[locale]/layout.tsx`, while the live
+  site returns `<title>HCW — Hervé-Charles Wenezoui</title>` — which is `hcw-website`'s
+  convention. **A green CI run in this repo proves nothing about what the domain serves.**
+  Do not conclude "deployed" from this repo's `deploy.yml`.
+- ⚠️ **This repo's trunk is stale and its redesign is unmerged.** `master` sits at the merge-base
+  with **0** commits of its own; `feat/redesign-wix-migration` is **16 commits ahead** and holds
+  everything current, including this file and `START-HERE.md`. **PR #1
+  (`feat/redesign-wix-migration → master`) has been OPEN since 2026-06-20.** So: work here happens
+  on the feature branch, and `master` should not be treated as the source of truth.
+  `deploy.yml` still triggers on push to `master`, which is a trap — check where that Vercel
+  project points before merging anything.
 - **Repo:** https://github.com/meyng-hub/hcw-association (default branch `master`)
 - **Host (target):** Vercel — project `hcw-association` (team `team_wONuXem8DRnuW9clO8GDXkaZ`)
 
